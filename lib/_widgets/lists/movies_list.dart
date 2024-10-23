@@ -33,17 +33,20 @@ class _MovieListScreenState extends State<MovieListScreen> {
     }
   }
 
-  void _filterMovies(String query) {
+  void _filterMovies(String query) async {
     setState(() {
       searchQuery = query;
       if (query.isEmpty) {
         isSearching = false;
+        _initializeMovies();
       } else {
         isSearching = true;
-        filteredMovies = filteredMovies
-            .where((movie) =>
-                movie.title.toLowerCase().contains(query.toLowerCase()))
-            .toList();
+        movies.then((moviesList) {
+          filteredMovies = moviesList
+              .where((movie) =>
+                  movie.title.toLowerCase().contains(query.toLowerCase()))
+              .toList();
+        });
       }
     });
   }
@@ -87,10 +90,16 @@ class _MovieListScreenState extends State<MovieListScreen> {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return const Center(child: Text("Failed to fetch data"));
+          } else if (snapshot.data!.isEmpty) {
+            return const Center(
+                child: Text(
+              "No movies found",
+              style: TextStyle(color: Colors.white),
+            ));
           } else {
             final moviesToDisplay =
                 isSearching ? filteredMovies : (snapshot.data ?? []);
-            print(snapshot.data![0].genre);
+
             return ListView.builder(
               itemCount: moviesToDisplay.length,
               itemBuilder: (context, index) {

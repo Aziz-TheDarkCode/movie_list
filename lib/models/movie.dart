@@ -26,9 +26,19 @@ class Movie {
     final response = await http.get(Uri.parse(jsonbinUrl));
     if (response.statusCode == 200) {
       final List<dynamic> jsonList = jsonDecode(response.body) as List<dynamic>;
-      return jsonList
+      List<Movie> movies = jsonList
           .map((json) => Movie.fromJson(json as Map<String, dynamic>))
           .toList();
+
+      movies.sort((a, b) {
+        double ratingA =
+            a.imdbRating == "N/A" ? 0.0 : double.parse(a.imdbRating);
+        double ratingB =
+            b.imdbRating == "N/A" ? 0.0 : double.parse(b.imdbRating);
+        return ratingB.compareTo(ratingA);
+      });
+
+      return movies;
     } else {
       throw Exception("Failed to load movies");
     }
@@ -39,7 +49,7 @@ class Movie {
       title: json['Title'] as String? ?? 'Untitled',
       year: json['Year'] as String? ?? 'Unknown',
       genre: json['Genre'] as String? ?? 'Unknown',
-      imdbRating: json['imdbRating'] as String? ?? 'N/A',
+      imdbRating: json['imdbRating'] as String? ?? "N/A",
       poster: json['Poster'] as String? ?? '',
       images: (json['Images'] as List<dynamic>?)
               ?.map((image) => image as String)

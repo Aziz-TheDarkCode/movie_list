@@ -1,16 +1,28 @@
-# movie_list
+# 🎬 Movies List App
 
-A new Flutter project.
+A mobile application that allows users to explore and search for top-rated movies from a JSON data source. Users can view detailed information about each movie and search by title.
 
-## Getting Started
+## 🎯 Project Overview
 
-This project is a starting point for a Flutter application.
+This project is a practical exercise in handling and displaying JSON data within a mobile application. Users can discover popular movies, view additional details, and search for specific titles using a flexible search bar.
 
-A few resources to get you started if this is your first Flutter project:
+## ✨ Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- ⭐ Display top-rated movies on the home screen, sorted by rating in descending order
+- 📄 View detailed information about each movie by tapping on it
+- 🔍 Search bar to find movies by name, with flexible matching (e.g., searching "vatar" returns "Avatar")
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🛠️ Technologies Used
+
+![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-%230175C2.svg?style=for-the-badge&logo=Dart&logoColor=white)
+
+### 📦 Key Packages
+
+- **http**: For loading JSON data (if fetching from a server)
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^latest_version
